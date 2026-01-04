@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Last Mage </title>
+<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",900,600);
+	var background = new sjs.Image("Images/background.png");
+	background.setSize(900,600);
+
+	var menutext = new sjs.Text("Last Mage", 25, "#323269");
+	menutext.centerH().offset(0, 6);
+
+	var loretext = new sjs.Text("This castle's been long under siege. You must find its secrets.", 24, "lime");
+	loretext.centerH().offset(0, 65);
+
+	var controltext = new sjs.Text("Use WASD to evade the enemies. Press E to shoot your mana beam", 26, "white");
+	controltext.centerH().offset(0, 125);
+
+	var goaltext = new sjs.Text("Get to 30 points to win.", 26, "white");
+	goaltext.centerH().offset(10, 165);
+
+	var playButt = new sjs.Button("Play", function(){
+		window.location = "main.html";
+	});
+	playButt.center().offset(0,45);
+
+	var healthtext = new sjs.Text("See this blue bar? It's your health, get hit four times and you'll die.", 22, "lightblue");
+	healthtext.bottom().offset(12,-9);
+
+	var credit = new sjs.Text("made by Vixva", 14, "#3f19d4");
+	credit.right().bottom();
+} //end start
+</script>
+</head>
+<body onload="start()" style="background:#323269;">
+<h1> Last Mage </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+<progress id="health" value="4" max="4" style="margin:0 0 0 490px;"></progress>
+</body>
+</html>
