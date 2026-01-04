@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Game Over </title>
+<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+<script>
+function start(){
+sjs.open("target", 1000,562);
+	var darksouls = new sjs.Image("Images/darksouls.gif");
+	darksouls.setSize(1000, 562);
+
+	var restartButt = new sjs.Button("Play Again", function(){
+		window.location = "index.html";
+	});
+	restartButt.center().offset(0,210);
+
+	var youDied = new Audio('Music/youdied.mp3');
+	
+	sjs.keyDown(SPACE_KEY, function(){
+		youDied.play();
+	});
+
+} //end start
+</script>
+</head>
+<body onload="start()" style="background:#323269;">
+<h1> The sword guys hit you, you know, with their swords. </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+
+<p style="color:orange;">Try pressing SPACE.</p>
+
+</body>
+</html>

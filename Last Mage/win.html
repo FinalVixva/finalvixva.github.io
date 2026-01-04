@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Mage Win </title>
+<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+<script>
+function start(){
+sjs.open();
+
+var endtext = new sjs.Text("Zone Clear!",36,"black");
+endtext.center().offset(0,-50);
+
+var resetButt = new sjs.Button("Again!", function(){
+	window.location = "index.html";
+});
+resetButt.center().offset(0,60);
+
+}
+</script>
+</head>
+<body onload="start()" style="background:#343269;">
+<h1> Mage Cleared Zone 1! </h1>
+
+<div id="target" style="margin:auto;background:gold;"></div>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<title> Last Mage </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",800,600);
+var background = new sjs.Image("Images/redbackground3.png");
+background.setSize(1440, 960);
+
+//Music
+var cryforme = new Audio('Music/CryForMe.mp3');
+var robots = new Audio('Music/mad_robots.mp3');
+var labyrinth = new Audio('Music/Labyrinth.mp3')
+var walls = new Audio('Music/BeingYourWalls.mp3');
+var sera = new Audio('Music/SerasConfession.mp3');
+var linkin = new Audio('Music/IntheEnd.mp3');
+var losin = new Audio('Music/LosinStreak.mp3');
+var record = new Audio('Music/ForTheRecord.m4a');
+var seventy = new Audio('Music/SeventyTimes7.mp3');
+	
+let setSong = labyrinth;
+
+
+	if(Math.random() < 0.04){
+		setSong = record;
+	}
+	if(0.04 < Math.random() < 0.07){
+		setSong = sera;
+	}
+	if(0.07 < Math.random() < 0.14){
+		setSong = losin;
+	}
+	if(0.14 < Math.random() < 0.32){
+		setSong = linkin;
+	}
+	if(0.32 < Math.random() < 0.43){
+		setSong = cryforme;
+	}
+	if(0.43 < Math.random() < 0.63){
+		setSong = walls;
+	}
+	if(0.63 < Math.random() < 0.78){
+		setSong = seventy;
+	}
+	if(0.78 < Math.random() < 0.84){
+		setSong = robots;
+	}
+	if(0.84 < Math.random() < 0.99){
+		setSong = labyrinth;
+	}
+
+
+var musicOn = true;
+
+var musictxt = new sjs.Text("Press SPACE to toggle music", 26, "yellow");
+musictxt.centerH();
+musictxt.fixed = true;
+
+
+	//end Music
+
+
+//mage properties
+
+var mage = new sjs.Image("Images/mage_right.png");
+mage.type = "mage";
+mage.setSize(72,72);
+mage.setGravity(0);
+mage.bottom();
+mage.friction = 0.3;
+mage.noBounds = true;
+
+sjs.scrollable(mage,background); 
+
+
+//controls
+
+var rface = true;
+
+sjs.keyDown(D_KEY, function(){
+	rface = true;
+	mage.pushRight(1.9);
+	if(rapidFire == true){
+		mage.setImage("Images/rapidmage_right.png");
+	} else {
+		mage.setImage("Images/mage_right.png");
+	}
+});
+
+sjs.keyDown(A_KEY, function(){
+	rface = false;
+	mage.pushLeft(1.9);
+	if(rapidFire == true){
+		mage.setImage("Images/rapidmage_left.png");
+	} else {
+		mage.setImage("Images/mage_left.png");
+	}
+});
+
+sjs.keyDown(W_KEY, function(){
+	mage.pushUp(2);
+});
+
+sjs.keyDown(S_KEY, function(){
+	mage.pushDown(2);
+});
+
+var canShoot = true;
+var canBeHit = true;
+var rapidFire = false;
+
+sjs.keyDown(E_KEY, function(){
+	if(canShoot == true){
+		canShoot = false;
+		var beam = new sjs.Image("Images/manabeam_right.png");
+		beam.type = "beam";
+		beam.setSize(42, 30);
+		beam.friction = 0;
+		beam.noBounds = true;
+		if(rface == true){
+		beam.moveTo(mage.getX()+72, mage.getY()+30);
+		beam.pushRight(22);
+	} else {
+			beam.setImage("Images/manabeam_left.png");
+			beam.moveTo(mage.getX()+-30, mage.getY()+30);
+			beam.pushLeft(22);
+		}
+		if(rapidFire == false){
+			setTimeout(function(){
+			canShoot = true;
+		}, 1400);
+		} else {
+			setTimeout(function(){
+			canShoot = true;
+		}, 800);
+		}
+	}
+});		
+
+sjs.keyDown(SPACE_KEY, function(){
+	setSong.play();
+	musictxt.destroy();
+});
+
+		//end controls
+
+
+//archer code
+
+var archerRFace = true;
+
+setInterval(function(){
+	var archerX = Math.floor(Math.random() * 1382);
+	var archerY = Math.floor(Math.random() * 530);
+	var archer = new sjs.Image("Images/bowknight_right.png");
+	archer.type = "archer";
+	archer.setSize(58,70);
+	archer.noBounds = true;
+	archer.friction = 0;
+	archer.moveTo(archerX, archerY);
+	 //arrow
+		setTimeout(function(){
+			var arrow = new sjs.Image("Images/arrow_right.png");
+			arrow.type = "arrow";
+			arrow.setSize(40,15);
+			arrow.friction = 0;
+			arrow.noBounds = true;
+			if(mage.x < archer.x){
+				arrow.setImage("Images/arrow_left.png");
+				arrow.pushLeft(6.2);
+				arrow.moveTo(archer.getX()+-70, archer.getY()+30);
+			} else {
+				arrow.setImage("Images/arrow_right.png");
+				arrow.pushRight(6.2);
+				arrow.moveTo(archer.getX()+70, archer.getY()+30);
+			}
+		}, 2400);
+		setTimeout(function(){
+			var arrow = new sjs.Image("Images/arrow_right.png");
+			arrow.type = "arrow";
+			arrow.setSize(40,15);
+			arrow.friction = 0;
+			arrow.noBounds = true;
+			if(mage.x < archer.x){
+				arrow.setImage("Images/arrow_left.png");
+				arrow.pushLeft(6.2);
+				arrow.moveTo(archer.getX()+-70, archer.getY()+30);
+			} else {
+				arrow.setImage("Images/arrow_right.png");
+				arrow.pushRight(6.2);
+				arrow.moveTo(archer.getX()+70, archer.getY()+30);
+			}
+		}, 4800);
+		setTimeout(function(){
+			var arrow = new sjs.Image("Images/arrow_right.png");
+			arrow.type = "arrow";
+			arrow.setSize(40,15);
+			arrow.friction = 0;
+			arrow.noBounds = true;
+			if(mage.x < archer.x){
+				arrow.setImage("Images/arrow_left.png");
+				arrow.pushLeft(6.2);
+				arrow.moveTo(archer.getX()+-70, archer.getY()+30);
+			} else {
+				arrow.setImage("Images/arrow_right.png");
+				arrow.pushRight(6.2);
+				arrow.moveTo(archer.getX()+70, archer.getY()+30);
+			}
+		}, 7200);	 //end arrow
+
+	//player tracking
+	if(mage.x < archer.x){
+		archerRFace = false;
+		archer.setImage("Images/bowknight_left.png");
+		archer.pushLeft(1.7);
+	} else {
+		archerRFace = true;
+		archer.setImage("Images/bowknight_right.png");
+		archer.pushRight(1.7);
+	}
+
+}, 6000);		
+
+		//end archer code
+
+
+//claymore code
+
+var knightRFace = false;
+
+setInterval(function(){
+	var knightX = Math.floor(Math.random() * 1348);
+	var knightY = Math.floor(Math.random() * 530);
+	var knight = new sjs.Image("Images/claymore_left.png");
+	knight.type = "knight";
+	knight.setSize(92,120);
+	knight.noBounds = true;
+	knight.friction = 0;
+	knight.pushLeft(3.3);
+	knight.moveTo(knightX, knightY);
+}, 14400);
+
+
+//Rapid Eye code
+
+setTimeout(function(){
+	var rapidX = Math.floor(Math.random() * 742);
+	var rapidY = Math.floor(Math.random() * 530);
+	var rapidEye = new sjs.Image("Images/rapideye.gif");
+	rapidEye.type = "rapid_eye";
+	rapidEye.setSize(64,64);
+	rapidEye.moveTo(rapidX, rapidY);
+}, 25000);
+
+
+//onHit functions
+
+sjs.onHit("mage", "bottom_screen", function(x,y){
+	sjs.stoppedBy(x,y);
+});
+
+sjs.onHit("mage", ["left_screen", "right_screen", "top_screen"], function(x,y){
+	sjs.stoppedBy(x,y);
+});
+
+sjs.onHit("mage", "brick", function(x,y){
+	sjs.stoppedBy(x,y);
+});
+
+
+//score
+var score = 0;
+var scoretxt = new sjs.Text("Score: 0", 23, "cyan");
+scoretxt.left().offset(20, 0);
+scoretxt.fixed = true;
+
+
+sjs.onHit(["archer", "knight"], ["top_screen", "bottom_screen"], function(x,y){
+	sjs.stoppedBy(x,y);
+});
+
+sjs.onHit("mage", "rapid_eye", function(x,y){
+	rapidFire = true;
+	y.destroy();
+	score = score + 3;
+	scoretxt.setText("Score: "+ score);
+	localStorage.setItem("score", score);
+	if(rface == true){
+		mage.setImage("Images/rapidmage_right.png");
+	} else {
+		mage.setImage("Images/rapidmage_left.png");
+	}
+	if(score >= 30){
+		window.location = "win.html";
+	};
+});
+
+sjs.onHit("mage", "knight", function(x,y){
+	let health = document.getElementById("health");
+	if(canBeHit == true){
+		health.value -= 1;
+		canBeHit = false;
+	} 
+	setTimeout(function(){
+			canBeHit = true;
+		}, 2000);
+}); 
+
+sjs.onHit("mage", "arrow", function(x,y){
+	if(canBeHit == true){
+		health.value -= 1;
+		canBeHit = false;
+		y.destroy();
+	} else {
+		y.destroy();
+	}
+	setTimeout(function(){
+			canBeHit = true;
+		}, 2000);
+});
+
+setInterval(function(){
+	if(health.value < 1){
+		mage.destroy();
+		window.location = "gameover.html";
+	}
+}, 240);
+
+
+sjs.onHit("beam", ["knight", "arrow"], function(x,y){
+	y.destroy();
+	x.destroy();
+	score = score + 2;
+	scoretxt.setText("Score: "+ score);
+	localStorage.setItem("score", score);
+	if(score >= 30){
+		window.location = "win.html";
+	};
+});
+
+sjs.onHit("beam", "archer", function(x,y){
+	y.destroy();
+	score = score + 1;
+	scoretxt.setText("Score: "+ score);
+	localStorage.setItem("score", score);
+	if(score >= 30){
+		window.location = "win.html";
+	};
+});
+
+
+sjs.onHit("arrow", ["archer", "knight"], function(x,y){
+	x.destroy();
+});
+
+sjs.onHit("arrow", "arrow", function(x,y){
+	x.destroy();
+	y.destroy();
+});
+
+sjs.onHit("arrow", ["left_screen", "right_screen"], function(x,y){
+	x.destroy();
+});
+
+sjs.onHit("archer", "left_screen", function(x,y){
+	sjs.bounceOff(x,y);
+	archerRFace = true;
+	x.setImage("Images/bowknight_right.png");
+});
+
+sjs.onHit("archer", "right_screen", function(x,y){
+	sjs.bounceOff(x,y);
+	archerRFace = false;
+	x.setImage("Images/bowknight_left.png");
+});
+
+sjs.onHit("knight", "left_screen", function(x,y){
+	sjs.bounceOff(x,y);
+	knightRFace = true;
+	x.setImage("Images/claymore_right.png");
+});
+
+sjs.onHit("knight", "right_screen", function(x,y){
+	sjs.bounceOff(x,y);
+	knightRFace = false;
+	x.setImage("Images/claymore_left.png");
+});
+
+
+} //end start
+</script>
+</head>
+<body onload="start()" style="background:#323269;">
+<h1> Last Mage </h1>
+
+<div id="target" style="margin:auto;background:grey;">
+
+
+</div>
+<progress id="health" value="4" max="4" style="margin:0 0 0 540px;"></progress>
+</body>
+</html>
